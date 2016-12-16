@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>FriendSpace - Sign Up</title>
+
+    <!--CSS FILES-->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/mdb.min.css">
+    <link rel="stylesheet" href="assets/css/materialize.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="main">
+    <!--Mask-->
+    <div class="view" id="home">
+        <div class="grad">
+            <div class="full-bg-img flex-center ">
+                <div class="sing-up">
+                    <div class="sing-up-banner">
+                        <div class="logo">
+                            <img src="assets/img/logo.png">
+                            <img src="assets/img/logo-text.png">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8 sing-up-form">
+                            <form>
+                                <div class="md-form">
+                                    <i class="fa fa-user-circle-o prefix"></i>
+                                    <input type="text" id="fullname" class="form-control">
+                                    <label for="username">Full Name</label>
+                                </div>
+
+                                <div class="md-form">
+                                    <i class="fa fa-user prefix"></i>
+                                    <input type="text" id="username" class="form-control">
+                                    <label for="username">Username</label>
+                                </div>
+
+                                <div class="md-form">
+                                    <i class="fa fa-envelope prefix"></i>
+                                    <input type="email" id="email" class="form-control">
+                                    <label for="email">Email Address</label>
+                                </div>
+                                <div class="md-form">
+                                    <i class="fa fa-calendar prefix"></i>
+                                    <input type="date" id="birthday" class="form-control datepicker">
+                                    <label for="birthday">Birthday</label>
+                                </div>
+                                <div class="md-form input-field">
+                                    <i class="fa fa-male prefix"></i>
+                                    <select>
+                                        <option value="" disabled selected>Gender</option>
+                                        <option value="1">Male</option>
+                                        <option value="2">Female</option>
+                                    </select>
+                                </div>
+                                <div class="md-form">
+                                    <i class="fa fa-lock prefix"></i>
+                                    <input type="password" id="password" class="form-control">
+                                    <label for="password">Password</label>
+                                </div>
+                                <div class="md-form">
+                                    <i class="fa fa-lock prefix"></i>
+                                    <input type="password" id="password_again" class="form-control">
+                                    <label for="password_again">Conform Password</label>
+                                </div>
+                                <div class="md-form text-md-center">
+                                    <button type="submit" class="btn btn-cyan">Sign Up &nbsp <i class="fa fa-sign-in"></i></button>
+                                </div>
+                            </form>
+                            <div class="sing-up-footer">
+                                <span class="float-lg-left">Already have account ? <a>Log In</a></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 sing-up-social">
+                            <!--Facebook-->
+                            <button type="button" class="btn btn-fb"><i class="fa fa-facebook left"></i>Sign up with Facebook</button>
+                            <!--Twitter-->
+                            <button type="button" class="btn btn-tw"><i class="fa fa-twitter left"></i>Sign up with Twitter</button>
+                            <!--Google +-->
+                            <button type="button" class="btn btn-gplus"><i class="fa fa-google-plus left"></i>Sign up with Google +</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/.Mask-->
+</div>
+
+
+
+
+
+<!--SCRIPT FILES-->
+<script type="text/javascript" src="assets/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/js/tether.min.js"></script>
+<script type="text/javascript" src="assets/js/mdb.min.js"></script>
+<script type="text/javascript" src="assets/js/materialize.min.js"></script>
+<script>
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15 // Creates a dropdown of 15 years to control year
+    });
+    $(document).ready(function() {
+        $('select').material_select();
+    });
+    $('select').material_select('destroy');
+</script>
+</body>
+</html>
