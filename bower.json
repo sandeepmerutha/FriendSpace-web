@@ -1,0 +1,17 @@
+{
+  "name": "FriendSpace-web",
+  "homepage": "https://github.com/webpchub/FriendSpace-web",
+  "authors": [
+    "pcsaini <premchandsaini779@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
