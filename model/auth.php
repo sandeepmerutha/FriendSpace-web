@@ -38,6 +38,18 @@ class auth_model extends DBconfig{
         }
         return $result;
     }
+    public function fb_login($data){
+        print_r($data);
+        die();
+    }
+    public function google_login($data){
+        print_r($data);
+        die();
+    }
+    public function twitter_login($data){
+        print_r($data);
+        die();
+    }
     public function forgetPassword($email){
         $email = mysqli_real_escape_string($this->connection,$email);
         $temp_id = substr(md5(microtime()),rand(0,26),15);

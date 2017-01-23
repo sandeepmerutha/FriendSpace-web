@@ -44,6 +44,20 @@ if(!$GLOBALS['dynamic_url']) {
 if(!$GLOBALS['hostname'] || !$GLOBALS['username'] || !$GLOBALS['database']) {
     echo "<div style='background: red; color: yellow; padding: 20px;'> set database fields - Please go to library/config.php to set </div>";
 }
+
+/*********Facebook Login **********/
+
+
+/*** Twitter****/
+require_once('library/twitteroauth/twitteroauth.php');
+/*** Twitter****/
+
+/*******Google ******/
+require_once 'library/Google/src/config.php';
+require_once 'library/Google/src/Google_Client.php';
+require_once 'library/Google/src/contrib/Google_PlusService.php';
+require_once 'library/Google/src/contrib/Google_Oauth2Service.php';
+/*******Google ******/
 include "library/database.php";
 
 
@@ -58,6 +72,7 @@ foreach ($model_files_filtered as $model) {
 }
 
 include "library/helper.php";
+
 
 
 if (!$controller) $controller = $GLOBALS['first_page'];
@@ -88,6 +103,15 @@ if($var['header']) {
 }
 else {
     include('view/'.$GLOBALS['header']);
+}
+
+if($var['navbar']) {
+    if($var['navbar'] && $GLOBALS['navbar'] != "false") {
+        include('view/'.$var['navbar']);
+    }
+}
+else {
+    include('view/'.$GLOBALS['navbar']);
 }
 
 
