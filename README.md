@@ -1,5 +1,13 @@
 # FriendSpace-web
-Friend Space app for web
+
+Friend Space app for Web
+
+[Demo](https://friend-space.000webhostapp.com/ "Demo")
 
 A Web and Android app for save Memories as photo album with friend group.
-![Login Page](/https://github.com/webpchub/FriendSpace-web/tree/master/Screenshot/to/login.jpg)
+
+![Login Page](https://raw.githubusercontent.com/webpchub/FriendSpace-web/master/Screenshot/login.png)
+
+Team:
++ Prem Chand Saini (Web) [Website](https://www.pcsaini.in/ "Website")
++ Vishal Nagarale (Android) [Website](https://vishaln04.github.io/ "Website")
