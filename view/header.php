@@ -12,16 +12,9 @@
         <link type="text/css" rel="stylesheet" href="<?php echo $GLOBALS['base_url']; ?>view/assets/css/style.css">
 
 
-        <!--js files-->
-        <script type="text/javascript" src="<?php echo $GLOBALS['base_url']; ?>view/mdbootstrap/js/jquery-3.1.1.min.js"></script>
-        <script type="text/javascript" src="<?php echo $GLOBALS['base_url']; ?>view/mdbootstrap/js/tether.js"></script>
-        <script type="text/javascript" src="<?php echo $GLOBALS['base_url']; ?>view/mdbootstrap/js/bootstrap.js"></script>
-        <script type="text/javascript" src="<?php echo $GLOBALS['base_url']; ?>view/mdbootstrap/js/mdb.js"></script>
 
-        <script type="text/javascript" src="<?php echo $GLOBALS['base_url']; ?>view/assets/js/main.js"></script>
 
     </head>
-
     <body>
 
 

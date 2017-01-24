@@ -1,1 +1,83 @@
-/* YOUR CUSTOM STYLES */
+/*Login Page*/
+.btn-fb{
+    background: #3b5998;
+}
+.btn-gplus{
+    background: #dd4b39;
+}
+.btn-tw{
+    background: #2ba9e1;
+}
+.login-form{
+    margin: 50px auto;
+}
+
+.login-form .card{
+    width: 500px;
+}
+.login-form .card img{
+    display: initial !important;
+}
+
+.login-form .card .login-header{
+    text-align: center;
+    padding: 20px 0 0 0;
+}
+.login-form .card .login-footer{
+
+}
+.login-form .card .social-login{
+    border-top: 1px solid #e5e5e5;
+    padding: 10px;
+    text-align: center;
+}
+@media (max-width: 576px) {
+    .flex-center{
+        display: initial;
+    }
+    .login-form{
+        margin: 10px;
+    }
+    .login-form .card{
+        width: 100%;
+    }
+}
+@media (min-width: 576px) {
+    .flex-center{
+        display: flex;
+    }
+    .login-form{
+        margin: 50px auto;
+        width: 500px;
+    }
+    .login-form .card{
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    .flex-center{
+        display: flex;
+    }
+    .login-form{
+        margin: 50px auto;
+        width: 500px;
+    }
+    .login-form .card{
+        width: 100%;
+    }
+}
+
+@media (min-width: 992px) {
+    .login-form{
+        margin: 50px auto;;
+        width: 500px;
+    }
+    .login-form .card{
+        width: 100%;
+    }
+}
+
+@media (min-width: 1200px) {
+
+}
