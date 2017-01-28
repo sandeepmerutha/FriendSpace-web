@@ -14,8 +14,8 @@ class authcheck{
         $this->helper = new helper();
 
         $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        if (isset($_SESSION['session_id'])){
-            $result = $this->model->checkSession($_SESSION['session_id']);
+        if(isset($_SESSION["easyphp_sessionid"])) {
+            $result = $this->model->checksession($_SESSION["easyphp_sessionid"]);
             if($result) {
                 $this->$result = $result;
             }
@@ -38,9 +38,8 @@ class authcheck{
             else {
                 header("Location: ".$GLOBALS['dynamic_url']."login?redirecturl=".$actual_link);
                 die();
-            };
+            }
         }
-
     }
 
 

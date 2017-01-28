@@ -11,12 +11,11 @@ class home extends authcheck{
     {
         $this->model = new auth_model();
         $this->authcheck = new authcheck();
-        $this->session_id = $_SESSION['session_id'];
     }
     public function index(){
-        $userdata = $this->model->userDetail();
+        $userdata = $this->model->userDetails();
         $data['userdata'] = $userdata;
-        $data['page_title'] = "Home";
+        $data['page_title'] = "Dashboard";
         $data['view_page'] = "users/home.php";
         $data['header'] = $GLOBALS['header'];
         $data['footer'] = $GLOBALS['footer'];

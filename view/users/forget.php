@@ -1,15 +1,32 @@
-<h3 class="center">Forget Password</h3>
-<div class="row">
-    <form action="<?php echo $GLOBALS['ep_dynamic_url']; ?>login/forgot" method="post" class="col s12">
-        <div class="row">
-            <div class="input-field col s12">
-                <input id="email" name="email" type="text" class="validate" value="<?php if(isset($_POST['email'])) { echo $post['email']; } ?>" required>
-                <label for="email">Enter your Email</label>
+
+<div class="flex-center">
+    <div class="login-form">
+        <!--Form without header-->
+        <div class="card">
+            <!--Header-->
+            <div class="login-header">
+                <img src="<?php echo $GLOBALS['base_url']; ?>view/assets/img/logo/logo_name_white.png">
             </div>
-            <div class="input-field col s12">
-                <button class="btn waves-effect waves-light light-blue darken-4" type="submit" style="margin-top: 20px;">Submit</button>
+            <div class="card-block">
+                <form id="login-form" method="post" action="">
+                    <!--Body-->
+                    <div class="md-form">
+                        <input type="email" id="email" name="email" class="form-control">
+                        <label for="email">Email</label>
+                    </div>
+
+                    <div class="text-xs-center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+                <!--Footer-->
+                <div class="login-footer">
+                    <div class="options">
+                        <span class="float-lg-left"><a>Go Back</a></span>
+                    </div>
+                </div>
             </div>
         </div>
-    </form>
+        <!--/Form without header-->
+    </div>
 </div>
-<a href='<?php echo $GLOBALS['ep_dynamic_url']; ?>'> Go Back </a>

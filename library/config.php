@@ -12,7 +12,7 @@ $GLOBALS['dynamic_url']="http://localhost/FriendSpace-web/";
 $GLOBALS['seourl'] = "true";
 
 $GLOBALS['first_page'] = "login";
-$GLOBALS['website_name'] = "Login";
+$GLOBALS['website_name'] = "FriendSpace";
 
 //Database Setting
 $GLOBALS['hostname']="localhost";
@@ -27,7 +27,7 @@ $GLOBALS['footer'] = "footer.php";
 //Facebook App Details
 define('FB_APP_ID', '380604015649201');
 define('FB_APP_SECRET', '0330c4bbb019e7ff8d2340af61cd0206');
-define('FB_REDIRECT_URI', 'http://localhost/FriendSpace-web/');
+define('FB_REDIRECT_URI', 'http://localhost/FriendSpace-web/register');
 
 //Google App Details
 define('GOOGLE_APP_NAME', 'FriendSpace Google+ login');

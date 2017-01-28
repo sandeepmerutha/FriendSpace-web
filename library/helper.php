@@ -60,8 +60,11 @@ class helper extends DBconfig{
     public function check($tbname,$where){
         $query = "SELECT * FROM $tbname $where";
         $result = mysqli_query($this->connection,$query);
-        $result = $this->mysqli_result($result);
-        return $result;
+        if (mysqli_num_rows($result) > 0) {
+            return true;
+        } else {
+            return false;
+        }
 
     }
     public function mysqli_result($res,$row=0,$col=0){

@@ -11,5 +11,5 @@ echo $userdata['username'];
 echo "<br>";
 echo $userdata['email'];
 echo "<br>";
-echo $userdata['first_name'];
+echo $userdata['name'];
 ?>

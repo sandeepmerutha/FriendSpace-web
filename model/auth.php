@@ -26,17 +26,71 @@ class auth_model extends DBconfig{
         return $result;
     }
 
-    public function login($username, $password){
-        $username = mysqli_real_escape_string($this->connection,$username);
-        $password = mysqli_real_escape_string($this->connection,$password);
+    public function update($data) {
+        $final_data = array();
+        $keys = array_keys($data);
+        $SessionId = $_SESSION["easyphp_sessionid"];
+        $resultRaw = $this->helper->db_select("user_id", "sessions", "WHERE sessionid='$SessionId'");
+        $session_array = $resultRaw->fetch_assoc();
+        $user_id = $session_array['user_id'];
+        foreach($keys as $key) {
+            //mysqli_real_escape_string used to avoid SQL injections
+            $value = mysqli_real_escape_string($this->connection, $data[$key]);
+            $final_data[$key] = $value;
+        }
+        $result = $this->helper->db_update($final_data, "users", "WHERE id='$user_id'");
+        return $result;
+    }
 
-        $user_id = $this->helper->db_select("user_id","users","WHERE username = '$username' OR email = '$username'");
-        $session_id = $this->helper->mysqli_result($user_id);
-        $result = $this->helper->check("users","WHERE username = '$username' OR email = '$username' AND password = '$password'");
-        if ($result){
-            $_SESSION['session_id'] = $session_id;
+    public function checkifexists($where) {
+        $result = $this->helper->check("users", $where);
+        return $result;
+    }
+
+    public function login($email, $password,$remember="0"){
+        $email = mysqli_real_escape_string($this->connection, $email);
+        $password = mysqli_real_escape_string($this->connection, $password);
+        $result = $this->helper->check("users", "WHERE email='$email' && password='$password'");
+        if($result) {
+            $sessionid = substr(md5(microtime()),rand(0,26),15);
+            $resultRaw = $this->helper->db_select("*", "users", "WHERE email='$email' && password='$password'");
+            $result = $resultRaw->fetch_assoc();
+            $data = array('sessionid' => $sessionid, 'user_id' => $result['id'], 'device' => $_SERVER['HTTP_USER_AGENT'], 'ip' => $_SERVER['REMOTE_ADDR']);
+            $_SESSION["easyphp_sessionid"] = $sessionid;
+            if($remember == "1") {
+                $cookie_name = "tutbuzzeasyphpsessionid";
+                $cookie_value = $sessionid;
+                setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
+            }
+            $this->helper->db_insert($data, "sessions");
         }
         return $result;
+    }
+
+    public function checksession($sessionid) {
+        $result = $this->helper->check("sessions", "WHERE sessionid='$sessionid' ");
+        return $result;
+    }
+
+    public function userDetails() {
+        $SessionId = $_SESSION["easyphp_sessionid"];
+        $resultRaw = $this->helper->db_select("user_id", "sessions", "WHERE sessionid='$SessionId'");
+        $session_array = $resultRaw->fetch_assoc();
+        $user_id = $session_array['user_id'];
+        $resultRaw = $this->helper->db_select("*", "users", "WHERE id='$user_id'");
+        $result = $resultRaw->fetch_assoc();
+        return $result;
+    }
+
+    public function deleteSession() {
+        $SessionId = $_SESSION["easyphp_sessionid"];
+        $result = $this->helper->db_delete("sessions", "WHERE sessionid='$SessionId'");
+        $_SESSION['redirecturl'] = "";
+        session_destroy();
+        if(!isset($_SESSION["easyphp_sessionid"]) || $result) {
+            header("Location: ".$GLOBALS['ep_dynamic_url']."login");
+            die();
+        }
     }
     public function fb_login($data){
         print_r($data);
@@ -71,32 +125,11 @@ class auth_model extends DBconfig{
     }
 
     public function changePassword($password) {
-        $user_id = $_SESSION['session_id'];
+        $user_id = $_SESSION['easyphp_session_id'];
         $password = mysqli_real_escape_string($this->connection, $password);
         $password = md5($password);
         $data = array("password"=>$password);
         $result = $this->helper->db_update($data, "users", "WHERE user_id='$user_id'");
         return $result;
     }
-
-    public function checkSession($session_id) {
-        $result = $this->helper->check("users", "WHERE user_id='$session_id' ");
-        return $result;
-    }
-
-    public function checkIfExists($tbname,$where) {
-        $result = $this->helper->check($tbname, $where);
-        return $result;
-    }
-
-    public function userDetail(){
-        $session_id = $_SESSION['session_id'];
-        $resultRaw = $this->helper->db_select("*", "users", "WHERE user_id='$session_id'");
-        $result = $resultRaw->fetch_assoc();
-        return $result;
-    }
-    public function loggedIn(){
-        return (isset($_SESSION['session_id'])) ? true : false;
-    }
-
 }

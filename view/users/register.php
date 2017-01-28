@@ -1,52 +1,55 @@
 
-    <div class="row">
-        <h3 class="center">Register</h3>
-        <?php
-        if(!empty($errors)) {
-            foreach($errors as $message) {
-                echo "<span class='error'>".$message[0]."</span><br/>";
-            }
-        }
-        if (!empty($result)) {
-            if($result == 1) {
-                echo "<span class='success'> Successfully Register! </span> <a href='".$GLOBALS['dynamic_url']."dashboard'> Go Back </a>";
-            }
-        }
-
-        ?>
-        <br/>
-        <form action="<?php echo $GLOBALS['dynamic_url']; ?>register" method="post" class="col s12">
-            <div class="row">
-                <div class="input-field col s12">
-                    <input  id="username" name="username" type="text" class="validate" value="<?php if(isset($_POST['username'])) { echo $post['username']; } ?>" required>
-                    <label for="username">Username</label>
-                </div>
-                <div class="input-field col s12">
-                    <input  id="password" name="password" type="password" class="validate" required>
-                    <label for="password">Password</label>
-                </div>
-                <div class="input-field col s12">
-                    <input  id="password" name="passwordverify" type="password" class="validate" required>
-                    <label for="password">Password Again</label>
-                </div>
-                <div class="input-field col s12">
-                    <input id="name" name="first_name" type="text" class="validate" value="<?php if(isset($_POST['first_name'])) { echo $post['first_name']; } ?>" required>
-                    <label for="name">First Name</label>
-                </div>
-                <div class="input-field col s12">
-                    <input id="name" name="last_name" type="text" class="validate" value="<?php if(isset($_POST['last_name'])) { echo $post['last_name']; } ?>" required>
-                    <label for="name">Last Name</label>
-                </div>
-                <div class="input-field col s12">
-                    <input id="email" name="email" type="email" class="validate" value="<?php if(isset($_POST['email'])) { echo $post['email']; } ?>" required>
-                    <label for="email">Email</label>
-                </div>
-                <div class="input-field col s12">
-                    <button class="btn waves-effect waves-light light-blue darken-4" type="submit" style="margin-top: 20px;">Register</button>
-                </div>
+<div class="flex-center">
+    <div class="login-form">
+        <!--Form without header-->
+        <div class="card">
+            <!--Header-->
+            <div class="login-header">
+                <img src="<?php echo $GLOBALS['base_url']; ?>view/assets/img/logo/logo_name.png">
             </div>
-        </form>
-        <div class="col s12" style="padding-top: 30px;">
-            <div class="col m6">Already have Account <a href="<?php echo $GLOBALS['dynamic_url']; ?>login">login</a></div>
+            <form class="col s12" method="post" action="<?php echo $GLOBALS['base_url']; ?>register">
+
+                <div class='row'>
+                    <div class='input-field col s12'>
+                        <input class='validate' type='email' name='email' id='email' />
+                        <label for='email'>Enter your email</label>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='input-field col s12'>
+                        <input class='validate' type='text' name='name' id='full_name' />
+                        <label for='full_name'>Full Name</label>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='input-field col s12'>
+                        <input class='validate' type='password' name='password' id='password' />
+                        <label for='password'>Password</label>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='input-field col s12'>
+                        <input class='validate' type='password' name='password_again' id='password' />
+                        <label for='password'>Conform Password</label>
+                    </div>
+                </div>
+
+                <br />
+                <center>
+                    <div class='row'>
+                        <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect cyan darken-3'>Sign Up</button>
+                    </div>
+                </center>
+
+            </form>
+        </div>
+        <div class="card">
+            <div class="login-footer">
+                Already have an account? <a href="<?php echo $GLOBALS['base_url']; ?>login" class="cyan-text text-darken-3">Login</a>
+            </div>
         </div>
     </div>
+</div>

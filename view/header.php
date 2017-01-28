@@ -6,14 +6,9 @@
         <title><?php echo $page_title; ?></title>
 
         <!--css files-->
-        <link type="text/css" rel="stylesheet" href="<?php echo $GLOBALS['base_url']; ?>view/mdbootstrap/css/bootstrap.min.css">
-        <link type="text/css" rel="stylesheet" href="<?php echo $GLOBALS['base_url']; ?>view/mdbootstrap/css/mdb.min.css">
+        <link type="text/css" rel="stylesheet" href="<?php echo $GLOBALS['base_url']; ?>view/assets/css/materialize.min.css">
         <link type="text/css" rel="stylesheet" href="<?php echo $GLOBALS['base_url']; ?>view/font-awesome/css/font-awesome.css">
         <link type="text/css" rel="stylesheet" href="<?php echo $GLOBALS['base_url']; ?>view/assets/css/style.css">
-
-
-
-
     </head>
     <body>
 

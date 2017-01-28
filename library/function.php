@@ -105,14 +105,14 @@ else {
     include('view/'.$GLOBALS['header']);
 }
 
-if($var['navbar']) {
+/*if($var['navbar']) {
     if($var['navbar'] && $GLOBALS['navbar'] != "false") {
         include('view/'.$var['navbar']);
     }
 }
 else {
     include('view/'.$GLOBALS['navbar']);
-}
+}*/
 
 
 if(method_exists($controller, $func)) {
