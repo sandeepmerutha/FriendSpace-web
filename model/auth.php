@@ -92,18 +92,7 @@ class auth_model extends DBconfig{
             die();
         }
     }
-    public function fb_login($data){
-        print_r($data);
-        die();
-    }
-    public function google_login($data){
-        print_r($data);
-        die();
-    }
-    public function twitter_login($data){
-        print_r($data);
-        die();
-    }
+
     public function forgetPassword($email){
         $email = mysqli_real_escape_string($this->connection,$email);
         $temp_id = substr(md5(microtime()),rand(0,26),15);
@@ -124,6 +113,14 @@ class auth_model extends DBconfig{
         return $result;
     }
 
+    public function activate($email,$email_code){
+        $email = mysqli_real_escape_string($this->connection,$email);
+        $email_code = mysqli_real_escape_string($this->connection,$email_code);
+        $data = array('register_status'=>1);
+        $result = $this->helper->db_update($data,'users',"WHERE email='$email' AND email_code='$email_code'");
+        return $result;
+    }
+
     public function changePassword($password) {
         $user_id = $_SESSION['easyphp_session_id'];
         $password = mysqli_real_escape_string($this->connection, $password);
@@ -131,5 +128,46 @@ class auth_model extends DBconfig{
         $data = array("password"=>$password);
         $result = $this->helper->db_update($data, "users", "WHERE user_id='$user_id'");
         return $result;
+    }
+    public function mail($to,$subject,$body){
+        $mail = new PHPMailer;
+
+        $mail->isSMTP();
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );                                    // Set mailer to use SMTP
+        $mail->Host = 'smtp.gmail.com';                       // Specify main and backup server
+        $mail->SMTPAuth = true;                               // Enable SMTP authentication
+        $mail->Username = 'friendspace779@gmail.com';                   // SMTP username
+        $mail->Password = 'Pcsaini@779';               // SMTP password
+        $mail->SMTPSecure = 'tls';                            // Enable encryption, 'ssl' also accepted
+        $mail->Port = 587;                                    //Set the SMTP port number - 587 for authenticated TLS
+        $mail->setFrom('friendspace779@gmail.com', 'Friend Space');     //Set who the message is to be sent from
+        $mail->addReplyTo('friendspace779@gmail.com', 'Friend Space');  //Set an alternative reply-to address
+        //$mail->addAddress('josh@example.net', 'Josh Adams');  // Add a recipient
+        $mail->addAddress($to);               // Name is optional
+        //$mail->addCC('cc@example.com');
+        //$mail->addBCC('bcc@example.com');
+        //$mail->WordWrap = 50;                                 // Set word wrap to 50 characters
+        //$mail->addAttachment('/usr/labnol/file.doc');         // Add attachments
+        //$mail->addAttachment('/images/image.jpg', 'new.jpg'); // Optional name
+        $mail->isHTML(true);                                  // Set email format to HTML
+
+        $mail->Subject = $subject;
+        $mail->Body    = $body;
+        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+        //Read an HTML message body from an external file, convert referenced images to embedded,
+        //convert HTML into a basic plain-text alternative body
+        //$mail->msgHTML(file_get_contents('contents.html'), dirname(__FILE__));
+
+        if(!$mail->send()) {
+            return false;
+        }
+        return true;
     }
 }

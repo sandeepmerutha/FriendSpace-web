@@ -47,6 +47,7 @@ if(!$GLOBALS['hostname'] || !$GLOBALS['username'] || !$GLOBALS['database']) {
 }
 
 include "library/Facebook/autoload.php";
+include "library/phpmailer/PHPMailerAutoload.php";
 include "library/database.php";
 
 

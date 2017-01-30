@@ -51,16 +51,17 @@ class login{
             $data['post'] = $_POST;
             $email = strip_tags($_POST['email']);
             $email = trim($email);
-            if ($this->emailExists($email)) {
+            $this->model->mail($email,"Forgot Password","Link");
+            /*if ($this->emailExists($email)) {
                 $data['result'] = $this->model;
             }
             else{
                 $data['errors'] = array(array("Email Address Not Exists"));
-            }
+            }*/
         }
 
         $data['page_title'] = "Forget Password";
-        $data['view_page'] = "users/forget.php";
+        $data['view_page'] = "users/forgot.php";
         $data['header'] = $GLOBALS['header'];
         $data['footer'] = $GLOBALS['footer'];
 

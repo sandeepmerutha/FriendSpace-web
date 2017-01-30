@@ -60,12 +60,10 @@ class register {
             $fb_data['location'] = $userNode->getLocation();
             $fb_data['register_status'] = '1';
             if ($this->fbIdExists($fb_data['fb_id'])){
-                $userData = $this->model->userDetails();
-                $_SESSION['easyphp_sessionid'] = $userData['user_id'];
-                header("Location: ".$GLOBALS['ep_dynamic_url']."home");
+                header("Location: ".$GLOBALS['dynamic_url']."home");
             } else{
                 $result = $this->model->register($fb_data);
-                header("Location: ".$GLOBALS['ep_dynamic_url']."home");
+                header("Location: ".$GLOBALS['dynamic_url']."home");
                 die();
             }
         }
@@ -74,7 +72,7 @@ class register {
         if(isset($_SESSION["easyphp_sessionid"])) {
             $ifSessionExists = $this->model->checksession($_SESSION["easyphp_sessionid"]);
             if($ifSessionExists) {
-                header("Location: ".$GLOBALS['ep_dynamic_url']."home");
+                header("Location: ".$GLOBALS['dynamic_url']."home");
                 die();
             }
         }
@@ -90,11 +88,16 @@ class register {
             $password = md5($password);
             $dob = $_POST['dob'];
             $gender = $_POST['gender'];
-            $email_code = substr(md5(rand(0,9999)),10);
+            $email_code = substr(md5(microtime()),rand(0,26),15);
             $arrayData = array('email' => $email,'name'=>$name,'password'=>$password,'dob'=>$dob,'gender'=>$gender,'email_code'=>$email_code);
             if($this->model->register($arrayData)){
-                header("Location: ".$GLOBALS['ep_dynamic_url']."home");
-                die();
+                $body = "Hello ".$name.",</br> Please Activate your Account <a href='".$GLOBALS['dynamic_url']."register/activate?email=".$email."&email_code=".$email_code."'>Click Here</a>";
+                $result = $this->model->mail($email,"Activate Your Account",$body);
+                if ($result){
+                    $data['result'] = true;
+                }else{
+                    $data['errors'] = array(array("Some Error"));
+                }
             }
             else{
                 $data['errors'] = array(array("Some Error"));
@@ -107,6 +110,16 @@ class register {
         return $data;
     }
 
+    public function activate(){
+        if (!empty($_GET)){
+            $email = $_GET['email'];
+            $email_code = $_GET['email_code'];
+            if ($this->model->activate($email,$email_code)){
+                header('Location: '.$GLOBALS['dynamic_url']."home");
+                die();
+            }
+        }
+    }
     public function checkDuplicateUsername($username) {
         $result = $this->model->checkifexists("WHERE username='$username'");
         return $result;
