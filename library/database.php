@@ -6,7 +6,6 @@
  * Time: 9:03 PM
  */
 
-include "config.php";
 
 class DBconfig{
 

@@ -35,6 +35,7 @@ if (isset($_GET['params'])){
 
 //Including Important file
 include "library/config.php";
+
 if(!$GLOBALS['base_url']) {
     echo "<div style='background: red; color: yellow; padding: 20px;'> set base url - Please go to library/config.php to set </div>";
 }
@@ -45,19 +46,7 @@ if(!$GLOBALS['hostname'] || !$GLOBALS['username'] || !$GLOBALS['database']) {
     echo "<div style='background: red; color: yellow; padding: 20px;'> set database fields - Please go to library/config.php to set </div>";
 }
 
-/*********Facebook Login **********/
-
-
-/*** Twitter****/
-require_once('library/twitteroauth/twitteroauth.php');
-/*** Twitter****/
-
-/*******Google ******/
-require_once 'library/Google/src/config.php';
-require_once 'library/Google/src/Google_Client.php';
-require_once 'library/Google/src/contrib/Google_PlusService.php';
-require_once 'library/Google/src/contrib/Google_Oauth2Service.php';
-/*******Google ******/
+include "library/Facebook/autoload.php";
 include "library/database.php";
 
 

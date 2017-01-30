@@ -25,6 +25,25 @@
 
                 <div class='row'>
                     <div class='input-field col s12'>
+                        <label class="active" for="dob">Date of Birth</label>
+                        <input class='validate datepicker' type='date' name='dob' id='dob' placeholder="DD/MM/YYYY" />
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='input-field col s12'>
+                        <label class="active" for="gender"></label>
+                        <select class="validate" name="gender" id="gender">
+                            <option value="" disabled selected>Gender</option>
+                            <option value="1">Male</option>
+                            <option value="2">Female</option>
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='input-field col s12'>
                         <input class='validate' type='password' name='password' id='password' />
                         <label for='password'>Password</label>
                     </div>
