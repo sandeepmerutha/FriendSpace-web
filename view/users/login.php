@@ -25,9 +25,9 @@
                         <a class='cyan-text text-darken-3' href='<?php echo $GLOBALS['base_url']; ?>login/forgot'><b>Forgot Password?</b></a>
                     </div>
                 </div>
-                <div>
-                    <input type="checkbox" id="test5" />
-                    <label for="test5">Remember me</label>
+                <div style="padding-left: 10px">
+                    <input type="checkbox" id="remember" name="remember" />
+                    <label for="remember">Remember me</label>
                 </div>
                 <br />
                 <center>
