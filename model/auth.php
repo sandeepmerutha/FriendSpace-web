@@ -67,6 +67,26 @@ class auth_model extends DBconfig{
         return $result;
     }
 
+    public function loginWithFb($fb_id){
+        $sessionid = substr(md5(microtime()),rand(0,26),15);
+        $resultRaw = $this->helper->db_select("*", "users", "WHERE fb_id='$fb_id'");
+        $result = $resultRaw->fetch_assoc();
+        $data = array('sessionid' => $sessionid, 'user_id' => $result['id'], 'device' => $_SERVER['HTTP_USER_AGENT'], 'ip' => $_SERVER['REMOTE_ADDR']);
+        $_SESSION["sessionid"] = $sessionid;
+        $result = $this->helper->db_insert($data, "sessions");
+        return $result;
+    }
+
+    public function loginEmail($email){
+        $sessionid = substr(md5(microtime()),rand(0,26),15);
+        $resultRaw = $this->helper->db_select("*", "users", "WHERE email='$email'");
+        $result = $resultRaw->fetch_assoc();
+        $data = array('sessionid' => $sessionid, 'user_id' => $result['id'], 'device' => $_SERVER['HTTP_USER_AGENT'], 'ip' => $_SERVER['REMOTE_ADDR']);
+        $_SESSION["sessionid"] = $sessionid;
+        $result = $this->helper->db_insert($data, "sessions");
+        return $result;
+    }
+
     public function checksession($sessionid) {
         $result = $this->helper->check("sessions", "WHERE sessionid='$sessionid' ");
         return $result;

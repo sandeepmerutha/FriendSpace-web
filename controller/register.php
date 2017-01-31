@@ -72,11 +72,19 @@ class register {
             $fb_data['register_status'] = '1';
             if ($this->fbIdExists($fb_data['fb_id'])){
                 //header("Location: ".$GLOBALS['dynamic_url']."home");
-                //$this->loginWithFb
+                $result = $this->model->loginWithFb($fb_data['fb_id']);
+                if($result) {
+                    header("Location: ".$GLOBALS['dynamic_url']."home");
+                    die();
+                }
             } else{
                 $result = $this->model->register($fb_data);
                 //header("Location: ".$GLOBALS['dynamic_url']."home");
-                die();
+                $result = $this->model->loginWithFb($fb_data['fb_id']);
+                if($result) {
+                    header("Location: ".$GLOBALS['dynamic_url']."home");
+                    die();
+                }
             }
         }
 
@@ -115,8 +123,11 @@ class register {
             $email = $_GET['email'];
             $email_code = $_GET['email_code'];
             if ($this->model->activate($email,$email_code)){
-                header('Location: '.$GLOBALS['dynamic_url']."home");
-                die();
+                $result = $this->model->loginEmail($email);
+                if($result) {
+                    header("Location: ".$GLOBALS['dynamic_url']."home");
+                    die();
+                }
             }
         }
     }
