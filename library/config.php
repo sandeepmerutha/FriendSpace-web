@@ -25,7 +25,7 @@ $GLOBALS['header'] = "header.php";
 $GLOBALS['footer'] = "footer.php";
 
 //Facebook App Details
-define('FB_APP_ID', '380604015649201');
-define('FB_APP_SECRET', '0330c4bbb019e7ff8d2340af61cd0206');
+define('FB_APP_ID', '257968584597664');
+define('FB_APP_SECRET', 'f5579d330bd39aed69a44423d28fb4eb');
 define('FB_REDIRECT_URI', 'http://localhost/FriendSpace-web/register');
 

@@ -14,8 +14,8 @@ class authcheck{
         $this->helper = new helper();
 
         $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        if(isset($_SESSION["easyphp_sessionid"])) {
-            $result = $this->model->checksession($_SESSION["easyphp_sessionid"]);
+        if(isset($_SESSION["sessionid"])) {
+            $result = $this->model->checksession($_SESSION["sessionid"]);
             if($result) {
                 $this->$result = $result;
             }

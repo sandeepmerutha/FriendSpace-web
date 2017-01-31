@@ -14,7 +14,10 @@ class logout{
     }
 
     public function index(){
-        session_destroy();
-        header("location: ".$GLOBALS['dynamic_url']."login");
+        $this->model->deleteSession();
+        $data['ep_title'] = "Logout";
+        $data['view_page'] = "false";
+        $data['ep_header'] = "false";
+        $data['ep_footer'] = "false";
     }
 }

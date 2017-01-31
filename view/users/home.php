@@ -5,11 +5,8 @@
  * Date: 8/12/16
  * Time: 3:53 AM
  */
-
-echo "hello ";
-echo $userdata['username'];
-echo "<br>";
-echo $userdata['email'];
-echo "<br>";
-echo $userdata['name'];
+echo "welcome sir";
+echo '<pr>';
+print_r($userdata);
+echo '</pr>';
 ?>

@@ -14,6 +14,17 @@ class register {
         $this->model = new auth_model();
     }
     public function index(){
+        if(isset($_SESSION["sessionid"])) {
+            $ifSessionExists = $this->model->checksession($_SESSION["sessionid"]);
+            if($ifSessionExists) {
+                header("Location: ".$GLOBALS['dynamic_url']."home");
+                die();
+            }
+        }
+        if(isset($_GET['redirecturl'])) {
+            $_SESSION['redirecturl'] = $_GET['redirecturl'];
+        }
+
         $fb = new Facebook\Facebook([
             'app_id' => FB_APP_ID,
             'app_secret' => FB_APP_SECRET,
@@ -60,24 +71,21 @@ class register {
             $fb_data['location'] = $userNode->getLocation();
             $fb_data['register_status'] = '1';
             if ($this->fbIdExists($fb_data['fb_id'])){
-                header("Location: ".$GLOBALS['dynamic_url']."home");
+                //header("Location: ".$GLOBALS['dynamic_url']."home");
+                $result = $this->model->loginWithFb($fb_data['fb_id']);
+                if($result) {
+                    header("Location: ".$GLOBALS['dynamic_url']."home");
+                    die();
+                }
             } else{
                 $result = $this->model->register($fb_data);
-                header("Location: ".$GLOBALS['dynamic_url']."home");
-                die();
+                //header("Location: ".$GLOBALS['dynamic_url']."home");
+                $result = $this->model->loginWithFb($fb_data['fb_id']);
+                if($result) {
+                    header("Location: ".$GLOBALS['dynamic_url']."home");
+                    die();
+                }
             }
-        }
-
-
-        if(isset($_SESSION["easyphp_sessionid"])) {
-            $ifSessionExists = $this->model->checksession($_SESSION["easyphp_sessionid"]);
-            if($ifSessionExists) {
-                header("Location: ".$GLOBALS['dynamic_url']."home");
-                die();
-            }
-        }
-        if(isset($_GET['redirecturl'])) {
-            $_SESSION['redirecturl'] = $_GET['redirecturl'];
         }
 
         if (!empty($_POST)) {
@@ -115,8 +123,11 @@ class register {
             $email = $_GET['email'];
             $email_code = $_GET['email_code'];
             if ($this->model->activate($email,$email_code)){
-                header('Location: '.$GLOBALS['dynamic_url']."home");
-                die();
+                $result = $this->model->loginEmail($email);
+                if($result) {
+                    header("Location: ".$GLOBALS['dynamic_url']."home");
+                    die();
+                }
             }
         }
     }
