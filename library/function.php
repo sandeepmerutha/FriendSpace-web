@@ -45,9 +45,10 @@ if(!$GLOBALS['dynamic_url']) {
 if(!$GLOBALS['hostname'] || !$GLOBALS['username'] || !$GLOBALS['database']) {
     echo "<div style='background: red; color: yellow; padding: 20px;'> set database fields - Please go to library/config.php to set </div>";
 }
-
+/*    include Library   */
 include "library/Facebook/autoload.php";
 include "library/phpmailer/PHPMailerAutoload.php";
+
 include "library/database.php";
 
 

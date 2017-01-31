@@ -14,6 +14,27 @@ class login{
         $this->model = new auth_model();
     }
     public function index(){
+        if(isset($_SESSION["sessionid"])) {
+            $ifSessionExists = $this->model->checksession($_SESSION["sessionid"]);
+            if($ifSessionExists) {
+                header("Location: ".$GLOBALS['dynamic_url']."home");
+                die();
+            }
+        }
+        else if(isset($_COOKIE['friendspacecreatedbypcsaini'])) {
+            $ifCookieExists = $this->model->checksession($_COOKIE['friendspacecreatedbypcsaini']);
+            if($ifCookieExists) {
+                $_SESSION["sessionid"] = $_COOKIE['friendspacecreatedbypcsaini'];
+                header("Location: ".$GLOBALS['dynamic_url']."home");
+                die();
+            }
+        }
+        else {
+            $_SESSION["sessionid"] = "";
+        }
+        if(isset($_GET['redirecturl'])) {
+            $_SESSION['redirecturl'] = $_GET['redirecturl'];
+        }
         if (!empty($_POST)) {
             $data['post'] = $_POST;
             $email = $_POST['email'];

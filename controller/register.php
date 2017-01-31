@@ -14,6 +14,17 @@ class register {
         $this->model = new auth_model();
     }
     public function index(){
+        if(isset($_SESSION["sessionid"])) {
+            $ifSessionExists = $this->model->checksession($_SESSION["sessionid"]);
+            if($ifSessionExists) {
+                header("Location: ".$GLOBALS['dynamic_url']."home");
+                die();
+            }
+        }
+        if(isset($_GET['redirecturl'])) {
+            $_SESSION['redirecturl'] = $_GET['redirecturl'];
+        }
+
         $fb = new Facebook\Facebook([
             'app_id' => FB_APP_ID,
             'app_secret' => FB_APP_SECRET,
@@ -60,24 +71,13 @@ class register {
             $fb_data['location'] = $userNode->getLocation();
             $fb_data['register_status'] = '1';
             if ($this->fbIdExists($fb_data['fb_id'])){
-                header("Location: ".$GLOBALS['dynamic_url']."home");
+                //header("Location: ".$GLOBALS['dynamic_url']."home");
+                //$this->loginWithFb
             } else{
                 $result = $this->model->register($fb_data);
-                header("Location: ".$GLOBALS['dynamic_url']."home");
+                //header("Location: ".$GLOBALS['dynamic_url']."home");
                 die();
             }
-        }
-
-
-        if(isset($_SESSION["easyphp_sessionid"])) {
-            $ifSessionExists = $this->model->checksession($_SESSION["easyphp_sessionid"]);
-            if($ifSessionExists) {
-                header("Location: ".$GLOBALS['dynamic_url']."home");
-                die();
-            }
-        }
-        if(isset($_GET['redirecturl'])) {
-            $_SESSION['redirecturl'] = $_GET['redirecturl'];
         }
 
         if (!empty($_POST)) {

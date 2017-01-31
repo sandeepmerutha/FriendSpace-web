@@ -29,7 +29,7 @@ class auth_model extends DBconfig{
     public function update($data) {
         $final_data = array();
         $keys = array_keys($data);
-        $SessionId = $_SESSION["easyphp_sessionid"];
+        $SessionId = $_SESSION["sessionid"];
         $resultRaw = $this->helper->db_select("user_id", "sessions", "WHERE sessionid='$SessionId'");
         $session_array = $resultRaw->fetch_assoc();
         $user_id = $session_array['user_id'];
@@ -56,9 +56,9 @@ class auth_model extends DBconfig{
             $resultRaw = $this->helper->db_select("*", "users", "WHERE email='$email' && password='$password'");
             $result = $resultRaw->fetch_assoc();
             $data = array('sessionid' => $sessionid, 'user_id' => $result['id'], 'device' => $_SERVER['HTTP_USER_AGENT'], 'ip' => $_SERVER['REMOTE_ADDR']);
-            $_SESSION["easyphp_sessionid"] = $sessionid;
+            $_SESSION["sessionid"] = $sessionid;
             if($remember == "1") {
-                $cookie_name = "tutbuzzeasyphpsessionid";
+                $cookie_name = "friendspacecreatedbypcsaini";
                 $cookie_value = $sessionid;
                 setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
             }
@@ -73,7 +73,7 @@ class auth_model extends DBconfig{
     }
 
     public function userDetails() {
-        $SessionId = $_SESSION["easyphp_sessionid"];
+        $SessionId = $_SESSION["sessionid"];
         $resultRaw = $this->helper->db_select("user_id", "sessions", "WHERE sessionid='$SessionId'");
         $session_array = $resultRaw->fetch_assoc();
         $user_id = $session_array['user_id'];
@@ -83,12 +83,12 @@ class auth_model extends DBconfig{
     }
 
     public function deleteSession() {
-        $SessionId = $_SESSION["easyphp_sessionid"];
+        $SessionId = $_SESSION["sessionid"];
         $result = $this->helper->db_delete("sessions", "WHERE sessionid='$SessionId'");
         $_SESSION['redirecturl'] = "";
         session_destroy();
-        if(!isset($_SESSION["easyphp_sessionid"]) || $result) {
-            header("Location: ".$GLOBALS['ep_dynamic_url']."login");
+        if(!isset($_SESSION["sessionid"]) || $result) {
+            header("Location: ".$GLOBALS['dynamic_url']."login");
             die();
         }
     }

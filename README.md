@@ -2,7 +2,7 @@
 
 Friend Space app for Web
 
-[Demo](https://friend-space.000webhostapp.com/ "Demo")
+[Demo](https://friendspace.000webhostapp.com/ "Demo")
 
 A Web and Android app for save Memories as photo album with friend group.
 
