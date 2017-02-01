@@ -7,7 +7,7 @@
             <div class="login-header">
                 <img src="<?php echo $GLOBALS['base_url']; ?>view/assets/img/logo/logo_name.png">
             </div>
-            <form class="col s12" method="post" action="<?php echo $GLOBALS['base_url']; ?>register">
+            <form class="col s12" id="register-form" method="post" action="<?php echo $GLOBALS['base_url']; ?>register">
                 <?php
                 if(!empty($errors)) {
                     foreach($errors as $message) {
@@ -45,7 +45,7 @@
                 <div class='row'>
                     <div class='input-field col s12'>
                         <label class="active" for="gender"></label>
-                        <select class="validate" name="gender" id="gender">
+                        <select class="validate" name="gender" id="gender" required>
                             <option value="" disabled selected>Gender</option>
                             <option value="m">Male</option>
                             <option value="f">Female</option>
@@ -71,7 +71,7 @@
                 <br />
                 <center>
                     <div class='row'>
-                        <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect cyan darken-3'>Sign Up</button>
+                        <button type='submit' name='register' class='col s12 btn btn-large waves-effect cyan darken-3'>Sign Up</button>
                     </div>
                 </center>
 

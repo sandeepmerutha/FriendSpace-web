@@ -5,7 +5,7 @@
     </center>
 
     <script type="text/javascript">
-        $(".dropdown-button").dropdown();
+
     </script>
     <!--js files-->
     <script type="text/javascript" src="<?php echo $GLOBALS['base_url']; ?>view/assets/js/jquery-3.1.1.min.js"></script>

@@ -86,6 +86,7 @@ if (file_exists("controller/".$controller.".php")) {
     }
 }
 
+
 //Building the view.
 if($var['header']) {
     if($var['header'] && $GLOBALS['header'] != "false") {

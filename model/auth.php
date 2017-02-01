@@ -50,7 +50,7 @@ class auth_model extends DBconfig{
     public function login($email, $password,$remember="0"){
         $email = mysqli_real_escape_string($this->connection, $email);
         $password = mysqli_real_escape_string($this->connection, $password);
-        $result = $this->helper->check("users", "WHERE email='$email' && password='$password'");
+        $result = $this->helper->check("users", "WHERE email='$email' OR username='$email' && password='$password'");
         if($result) {
             $sessionid = substr(md5(microtime()),rand(0,26),15);
             $resultRaw = $this->helper->db_select("*", "users", "WHERE email='$email' && password='$password'");
@@ -163,7 +163,7 @@ class auth_model extends DBconfig{
         $mail->Host = 'smtp.gmail.com';                       // Specify main and backup server
         $mail->SMTPAuth = true;                               // Enable SMTP authentication
         $mail->Username = 'friendspace779@gmail.com';                   // SMTP username
-        $mail->Password = 'Pcsaini@779';               // SMTP password
+        $mail->Password = 'friendspace.';               // SMTP password
         $mail->SMTPSecure = 'tls';                            // Enable encryption, 'ssl' also accepted
         $mail->Port = 587;                                    //Set the SMTP port number - 587 for authenticated TLS
         $mail->setFrom('friendspace779@gmail.com', 'Friend Space');     //Set who the message is to be sent from
