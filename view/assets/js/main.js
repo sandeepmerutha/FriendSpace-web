@@ -1,9 +1,9 @@
 
-document.addEventListener("DOMContentLoaded", function(){
-    $('.preloader-background').delay(2000).fadeOut('slow');
+
+window.addEventListener("load", function(){
+    $('.preloader-background').fadeOut('slow');
 
     $('.preloader-wrapper')
-        .delay(2000)
         .fadeOut();
 });
 
@@ -22,4 +22,6 @@ $( document ).ready(function() {
 
 $(document).ready(function() {
     $('select').material_select();
+    $("dropdown-button").dropdown();
 });
+

@@ -15,11 +15,11 @@
             }
             ?>
             <br/>
-            <form class="col s12" method="post" action="<?php echo $GLOBALS['base_url']; ?>login">
+            <form class="col s12" id="login-form" method="post" action="">
 
                 <div class='row'>
                     <div class='input-field col s12'>
-                        <input class='validate' type='email' name='email' id='email' />
+                        <input class='validate' type='text' name='email' id='email' />
                         <label for='email'>Email or Username</label>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                 <br />
                 <center>
                     <div class='row'>
-                        <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect cyan darken-3'>Login</button>
+                        <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect cyan darken-3 btn-login'>Login</button>
                     </div>
                 </center>
                 <div class="text-divider"><h6><strong>OR</strong></h6></div>
@@ -58,7 +58,7 @@
             </div>
         </div>
 
-
+        
         <script type="text/javascript">
             function validate() {
                 if (document.getElementById('remember').checked) {

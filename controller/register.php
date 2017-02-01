@@ -88,7 +88,7 @@ class register {
             }
         }
 
-        if (!empty($_POST)) {
+        if ( isset($_POST['register'])) {
             $data['post'] = $_POST;
             $email = $_POST['email'];
             $name = $_POST['name'];
@@ -111,11 +111,28 @@ class register {
                 $data['errors'] = array(array("Some Error"));
             }
         }
+
+
+
         $data['page_title'] = "Register";
         $data['view_page'] = "users/register.php";
         $data['header'] = $GLOBALS['header'];
         $data['footer'] = $GLOBALS['footer'];
+
         return $data;
+    }
+
+    public function check(){
+        if ( isset($_POST['email']) && !empty($_POST['email']) ) {
+            $email = trim($_REQUEST['email']);
+            $email = strip_tags($email);
+            if ($this->checkDuplicateEmail($email)){
+                echo "false";
+            } else{
+                echo "true";
+            }
+            die();
+        }
     }
 
     public function activate(){
