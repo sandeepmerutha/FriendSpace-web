@@ -67,22 +67,44 @@ class login{
 
         return $data;
     }
-    public function forgot(){
+    public function forget(){
         if (!empty($_POST)) {
             $data['post'] = $_POST;
             $email = strip_tags($_POST['email']);
             $email = trim($email);
-            $this->model->mail($email,"Forgot Password","Link");
-            /*if ($this->emailExists($email)) {
-                $data['result'] = $this->model;
+            if ($this->emailExists($email)) {
+                $data['result'] = $this->model->forgetPassword($email);
             }
             else{
                 $data['errors'] = array(array("Email Address Not Exists"));
-            }*/
+            }
         }
 
         $data['page_title'] = "Forget Password";
-        $data['view_page'] = "users/forgot.php";
+        $data['view_page'] = "users/forget.php";
+        $data['header'] = $GLOBALS['header'];
+        $data['footer'] = $GLOBALS['footer'];
+
+        return $data;
+    }
+
+    public function recoverPassword($temp_id){
+
+       if (!empty($_POST)){
+            $password = $_POST['password'];
+            $password = trim(strip_tags($password));
+            if ($this->model->resetPassword($temp_id,$password)){
+                header("Location: ".$GLOBALS['dynamic_url']."home");
+                die();
+            }
+            else{
+                $data['errors'] = array(array("Some Errors in Mail"));
+            }
+
+        }
+        $data['temp_id'] = $temp_id;
+        $data['page_title'] = "Recover Password";
+        $data['view_page'] = "users/recover_password.php";
         $data['header'] = $GLOBALS['header'];
         $data['footer'] = $GLOBALS['footer'];
 
@@ -90,17 +112,13 @@ class login{
     }
 
     public function changePassword(){
-        //$this->authcheck = new authcheck();
+        $this->authcheck = new authcheck();
         if (!empty($_POST)) {
-            $userdata = $this->model->userDetail();
-            $password_confirm = strip_tags($_POST['password_confirm']);
-            $password = strip_tags($_POST['password']);
-            $password_verify = strip_tags($_POST['password_verify']);
-            if(md5($password_confirm) !== $userdata['password']){
-                $data['errors']  = array(array("Wrong Current Password"));
-            }
-            else if ($password !== $password_verify){
-                $data['errors'] = array(array("Password Don't Match"));
+            $userdata = $this->model->userDetails();
+            $current_password = trim(strip_tags($_POST['current_password']));
+            $password = trim(strip_tags($_POST['password']));
+            if ($userdata['password'] != md5($current_password)){
+                $data['errors'] = array(array("Wrong Current Password"));
             }
             else {
                 $data['result'] = $this->model->changePassword($password);
@@ -116,7 +134,7 @@ class login{
     }
 
     public function emailExists($email) {
-        $result = $this->model->checkIfExists("users","WHERE email='$email'");
+        $result = $this->model->checkifexists("WHERE email='$email'");
         return $result;
     }
 }

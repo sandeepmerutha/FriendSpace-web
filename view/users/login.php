@@ -15,7 +15,7 @@
             }
             ?>
             <br/>
-            <form class="col s12" id="login-form" method="post" action="">
+            <form class="col s12" id="login-form" method="post" action="<?php echo $GLOBALS['base_url']; ?>login">
 
                 <div class='row'>
                     <div class='input-field col s12'>
@@ -30,7 +30,7 @@
                         <label for='password'>Password</label>
                     </div>
                     <div class="right-align">
-                        <a class='cyan-text text-darken-3' href='<?php echo $GLOBALS['base_url']; ?>login/forgot'><b>Forgot Password?</b></a>
+                        <a class='cyan-text text-darken-3' href='<?php echo $GLOBALS['base_url']; ?>login/forget'><b>Forget Password?</b></a>
                     </div>
                 </div>
                 <div style="padding-left: 10px">

@@ -26,25 +26,7 @@ $('document').ready(function()
         errorPlacement: function(error, element) {
             element.next("label").attr("data-error", error.contents().text());
         }
-        //submitHandler: Login
     });
-    /*function Login() {
-        var $data = $("#login-form").serialize();
-        //$(".btn-login").html('sending...');
-       $.ajax({
-            type: 'POST',
-            url:'login',
-            data: $data,
-            /!*beforeSend: function () {
-                $(".btn-login").html('sending...');
-            },
-            success:function () {
-                $(".btn-login").html('sending...');
-                setTimeout(' window.location.href = "login"; ',2000);
-            }*!/
-        })
-
-    }*/
 
 });
 
@@ -71,7 +53,8 @@ $('document').ready(function()
                 }
             },
             dob: {
-                required: true
+                required: true,
+                date:true
             },
             gender: {
                 required: function(){
@@ -108,6 +91,42 @@ $('document').ready(function()
             },
             gender: {
                 required: "Gender is Required"
+            },
+            password: {
+                required: "Password is required",
+                minlength: "Password at least have 6 characters"
+            },
+            password_again: {
+                required: "Retype your password",
+                equalTo: "Password did not match !"
+            }
+        },
+        errorClass: 'invalid',
+        errorPlacement: function (error, element) {
+            element.next("label").attr("data-error", error.contents().text());
+        }
+    });
+});
+$('document').ready(function()
+{
+    $("#password-form").validate({
+        rules: {
+            current_password:{
+                required: true,
+            },
+            password: {
+                required: true,
+                minlength: 6,
+                maxlength: 15
+            },
+            password_again: {
+                required: true,
+                equalTo: '#password'
+            }
+        },
+        messages: {
+            current_password:{
+                required: "Current Password id required",
             },
             password: {
                 required: "Password is required",

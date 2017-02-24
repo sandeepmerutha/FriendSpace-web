@@ -53,7 +53,7 @@ class auth_model extends DBconfig{
         $result = $this->helper->check("users", "WHERE email='$email' OR username='$email' && password='$password'");
         if($result) {
             $sessionid = substr(md5(microtime()),rand(0,26),15);
-            $resultRaw = $this->helper->db_select("*", "users", "WHERE email='$email' && password='$password'");
+            $resultRaw = $this->helper->db_select("*", "users", "WHERE email='$email' OR username='$email' && password='$password'");
             $result = $resultRaw->fetch_assoc();
             $data = array('sessionid' => $sessionid, 'user_id' => $result['id'], 'device' => $_SERVER['HTTP_USER_AGENT'], 'ip' => $_SERVER['REMOTE_ADDR']);
             $_SESSION["sessionid"] = $sessionid;
@@ -66,6 +66,7 @@ class auth_model extends DBconfig{
         }
         return $result;
     }
+
 
     public function loginWithFb($fb_id){
         $sessionid = substr(md5(microtime()),rand(0,26),15);
@@ -121,16 +122,35 @@ class auth_model extends DBconfig{
         $resultRaw = $this->helper->db_select("name", "users", "WHERE email='$email'");
         $user_array = $resultRaw->fetch_assoc();
         $name = $user_array['name'];
-        $baseurl = $GLOBALS['ep_base_url'];
+        $baseurl = $GLOBALS['base_url'];
 
         if($result) {
-            $subject = "Forgot Password Request";
-            $body = "Hi $name, <br/> Please click the following link for password reset - <br/> ".$baseurl."login/passwordreset/secret/$temp_id <br/> Thanks,";
-            $alertmsg = "Password reset successfully requested, Please check your mail for more details";
-            mail($email,$subject, $body,"premchandsaini779@gmail.com");
-        }
 
+            $subject = "Forgot Password Request";
+            $body = "Hi $name, <br/> Please click the following link for password reset - <br/> ".$baseurl."login/recoverPassword/secret/$temp_id <br/> Thanks";
+
+            if ($this->mail($email,$subject,$body)){
+
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function resetPassword($tempId,$password){
+        $tempId = mysqli_real_escape_string($this->connection,$tempId);
+        $password = mysqli_real_escape_string($this->connection,$password);
+
+        $password = md5($password);
+        $data = array("password"=>$password);
+        $result = $this->helper->db_update($data, "users", "WHERE temp_id='$tempId'");
         return $result;
+
     }
 
     public function activate($email,$email_code){
@@ -142,13 +162,17 @@ class auth_model extends DBconfig{
     }
 
     public function changePassword($password) {
-        $user_id = $_SESSION['easyphp_session_id'];
+        $SessionId = $_SESSION["sessionid"];
+        $resultRaw = $this->helper->db_select("user_id", "sessions", "WHERE sessionid='$SessionId'");
+        $session_array = $resultRaw->fetch_assoc();
+        $user_id = $session_array['user_id'];
         $password = mysqli_real_escape_string($this->connection, $password);
         $password = md5($password);
         $data = array("password"=>$password);
-        $result = $this->helper->db_update($data, "users", "WHERE user_id='$user_id'");
+        $result = $this->helper->db_update($data, "users", "WHERE id='$user_id'");
         return $result;
     }
+
     public function mail($to,$subject,$body){
         $mail = new PHPMailer;
 
@@ -163,7 +187,7 @@ class auth_model extends DBconfig{
         $mail->Host = 'smtp.gmail.com';                       // Specify main and backup server
         $mail->SMTPAuth = true;                               // Enable SMTP authentication
         $mail->Username = 'friendspace779@gmail.com';                   // SMTP username
-        $mail->Password = 'friendspace.';               // SMTP password
+        $mail->Password = 'Friend@779';               // SMTP password
         $mail->SMTPSecure = 'tls';                            // Enable encryption, 'ssl' also accepted
         $mail->Port = 587;                                    //Set the SMTP port number - 587 for authenticated TLS
         $mail->setFrom('friendspace779@gmail.com', 'Friend Space');     //Set who the message is to be sent from
@@ -179,7 +203,7 @@ class auth_model extends DBconfig{
 
         $mail->Subject = $subject;
         $mail->Body    = $body;
-        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
         //Read an HTML message body from an external file, convert referenced images to embedded,
         //convert HTML into a basic plain-text alternative body

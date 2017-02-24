@@ -113,7 +113,6 @@ class register {
         }
 
 
-
         $data['page_title'] = "Register";
         $data['view_page'] = "users/register.php";
         $data['header'] = $GLOBALS['header'];
@@ -148,6 +147,7 @@ class register {
             }
         }
     }
+
     public function checkDuplicateUsername($username) {
         $result = $this->model->checkifexists("WHERE username='$username'");
         return $result;
