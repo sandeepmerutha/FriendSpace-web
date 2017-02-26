@@ -35,16 +35,10 @@
                     </div>
                 </div>
 
-                <div class='row'>
-                    <div class='input-field col s12'>
-                        <label class="active" for="dob">Date of Birth</label>
-                        <input class='datepicker' type='date' name='dob' id='dob' placeholder="DD/MM/YYYY"/>
-                    </div>
-                </div>
 
                 <div class='row'>
                     <div class='input-field col s12'>
-                        <label class="active" for="gender"></label>
+                        <label class="active"  data-error="Please Select Gender" for="gender"></label>
                         <select class="validate" name="gender" id="gender" required>
                             <option value="" disabled selected>Gender</option>
                             <option value="m">Male</option>

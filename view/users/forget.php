@@ -8,7 +8,20 @@
                 <img src="<?php echo $GLOBALS['base_url']; ?>view/assets/img/logo/logo_name.png">
             </div>
             <div class="card-block">
-                <form class="col s12" method="post" action="<?php echo $GLOBALS['base_url']; ?>login/forgot">
+                <form id="forget_password" class="col s12" method="post" action="<?php echo $GLOBALS['base_url']; ?>login/forget">
+
+                    <?php
+                    if(!empty($errors)) {
+                        foreach($errors as $message) {
+                            echo "<div class=''>".$message[0]."</div><br/>";
+                        }
+                    }
+                    if (!empty($result)) {
+                        if($result == 1) {
+                            echo "<div> Please Check Your Mail .</div>";
+                        }
+                    }
+                    ?>
 
                     <div class='row'>
                         <div class='input-field col s12'>

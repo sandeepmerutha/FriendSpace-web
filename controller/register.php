@@ -66,7 +66,6 @@ class register {
             $fb_data = array();
             $fb_data['fb_id'] = $userNode->getId();
             $fb_data['name'] = $userNode->getName();
-            $fb_data['dob'] = $userNode->getBirthday();
             $fb_data['gender'] = $userNode->getGender();
             $fb_data['location'] = $userNode->getLocation();
             $fb_data['register_status'] = '1';
@@ -113,7 +112,6 @@ class register {
         }
 
 
-
         $data['page_title'] = "Register";
         $data['view_page'] = "users/register.php";
         $data['header'] = $GLOBALS['header'];
@@ -128,10 +126,11 @@ class register {
             $email = strip_tags($email);
             if ($this->checkDuplicateEmail($email)){
                 echo "false";
+                die();
             } else{
                 echo "true";
+                die();
             }
-            die();
         }
     }
 
@@ -148,6 +147,7 @@ class register {
             }
         }
     }
+
     public function checkDuplicateUsername($username) {
         $result = $this->model->checkifexists("WHERE username='$username'");
         return $result;
