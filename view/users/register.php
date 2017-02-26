@@ -35,12 +35,6 @@
                     </div>
                 </div>
 
-                <div class='row'>
-                    <div class='input-field col s12'>
-                        <input class='datepicker' type='date' name='dob' id='dob' placeholder="DD/MM/YYYY"/>
-                        <label class="active" for="dob">Date of Birth</label>
-                    </div>
-                </div>
 
                 <div class='row'>
                     <div class='input-field col s12'>

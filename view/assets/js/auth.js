@@ -1,6 +1,9 @@
 /**
  * Created by pcsaini on 25/1/17.
  */
+/*-------------------------------
+    Login Form Validation
+---------------------------------*/
 $('document').ready(function()
 {
     $("#login-form").validate({
@@ -30,9 +33,17 @@ $('document').ready(function()
 
 });
 
-
+/*-------------------------------
+ Register Form Validation
+ ---------------------------------*/
 $('document').ready(function()
 {
+    //email validation
+    var eregex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    $.validator.addMethod("validemail", function( value, element ) {
+        return this.optional( element ) || eregex.test( value );
+    });
+
     $("#register-form").validate({
         rules: {
             name: {
@@ -41,6 +52,7 @@ $('document').ready(function()
             },
             email: {
                 required: true,
+                validemail : true,
                 remote: {
                     url: "register/check",
                     type: "post",
@@ -51,10 +63,6 @@ $('document').ready(function()
                         }
                     }
                 }
-            },
-            dob: {
-                required: true,
-                date:true
             },
             gender: {
                 required: function(){
@@ -84,10 +92,8 @@ $('document').ready(function()
             },
             email: {
                 required: "Email is required",
+                validemail: "Please Enter a valid Email address",
                 remote: "Email already exists"
-            },
-            dob: {
-                required: "Date of Birth in required"
             },
             gender: {
                 required: "Gender is Required"
@@ -107,6 +113,10 @@ $('document').ready(function()
         }
     });
 });
+
+/*-------------------------------
+ Reset Password Form Validation
+ ---------------------------------*/
 $('document').ready(function()
 {
     $("#password-form").validate({
@@ -135,6 +145,37 @@ $('document').ready(function()
             password_again: {
                 required: "Retype your password",
                 equalTo: "Password did not match !"
+            }
+        },
+        errorClass: 'invalid',
+        errorPlacement: function (error, element) {
+            element.next("label").attr("data-error", error.contents().text());
+        }
+    });
+});
+
+/*-------------------------------
+ Forget Password Form Validation
+ ---------------------------------*/
+$('document').ready(function()
+{
+    //email validation
+    var eregex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    $.validator.addMethod("validemail", function( value, element ) {
+        return this.optional( element ) || eregex.test( value );
+    });
+
+    $("#forget_password").validate({
+        rules: {
+            email: {
+                required: true,
+                validemail : true
+            }
+        },
+        messages: {
+            email: {
+                required: "Email is required",
+                validemail: "Please Enter a valid Email address"
             }
         },
         errorClass: 'invalid',

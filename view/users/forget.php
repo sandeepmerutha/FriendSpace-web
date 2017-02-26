@@ -8,7 +8,7 @@
                 <img src="<?php echo $GLOBALS['base_url']; ?>view/assets/img/logo/logo_name.png">
             </div>
             <div class="card-block">
-                <form class="col s12" method="post" action="<?php echo $GLOBALS['base_url']; ?>login/forget">
+                <form id="forget_password" class="col s12" method="post" action="<?php echo $GLOBALS['base_url']; ?>login/forget">
 
                     <?php
                     if(!empty($errors)) {
